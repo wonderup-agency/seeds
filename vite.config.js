@@ -9,6 +9,6 @@ export default defineConfig({
         entryFileNames: 'bundle.js',
       }
     },
-    minify: false,
+    minify: true,
   }
 });
