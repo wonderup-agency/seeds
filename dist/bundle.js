@@ -6571,3 +6571,78 @@ if (!!stickyText) {
     }
   });
 }
+const faqs = document.querySelector("[data-component='faqs']");
+if (!!faqs) {
+  let clickHandler = function(e) {
+    const item = e.currentTarget;
+    const accordion = item.querySelector("[data-faqs='accordion']");
+    if (item.classList.contains("is-active")) {
+      item.classList.remove("is-active");
+      accordion.style.height = "0rem";
+    } else {
+      item.classList.add("is-active");
+      accordion.style.height = `${sumHeightsOfElements(accordion.childNodes) + 1}px`;
+    }
+  }, switchToDesktop = function() {
+    list.style.display = "flex";
+    list.style.flexDirection = "column";
+    const dupedList = list.cloneNode(true);
+    dupedList.setAttribute("data-faqs", "duped-list");
+    faqs.appendChild(dupedList);
+    const half = Math.ceil(items.length / 2);
+    for (let i = half; i < items.length; i++) {
+      items[i].remove();
+    }
+    for (let i = 0; i < half; i++) {
+      dupedList.children[0].remove();
+    }
+    items = faqs.querySelectorAll("[data-faqs='item']");
+    items.forEach((item) => {
+      item.removeEventListener("click", clickHandler);
+      item.addEventListener("click", clickHandler);
+    });
+  }, switchToMobile = function() {
+    list.style.display = "grid";
+    list.style.flexDirection = "row";
+    const dupedList = faqs.querySelector("[data-faqs='duped-list']");
+    const childrenCount = dupedList.children.length;
+    for (let i = 0; i < childrenCount; i++) {
+      list.appendChild(dupedList.children[0]);
+    }
+    dupedList.remove();
+  }, sumHeightsOfElements = function(elements) {
+    const heights = [];
+    elements.forEach((element) => {
+      heights.push(element.offsetHeight);
+    });
+    return heights.reduce((a, b) => a + b, 0);
+  };
+  var clickHandler2 = clickHandler, switchToDesktop2 = switchToDesktop, switchToMobile2 = switchToMobile, sumHeightsOfElements2 = sumHeightsOfElements;
+  console.log("COMPONENT: FAQS");
+  const list = faqs.querySelector("[data-faqs='list']");
+  let items = list.querySelectorAll("[data-faqs='item']");
+  items.forEach((item) => {
+    item.classList.remove("is-active");
+    item.setAttribute("tabindex", "1");
+  });
+  let isDesktop = window.innerWidth >= 991;
+  if (isDesktop) {
+    switchToDesktop();
+  } else {
+    switchToMobile();
+  }
+  window.addEventListener("resize", () => {
+    const shouldSwitchToDesktop = window.innerWidth >= 991;
+    if (shouldSwitchToDesktop !== isDesktop) {
+      isDesktop = shouldSwitchToDesktop;
+      if (isDesktop) {
+        switchToDesktop();
+      } else {
+        switchToMobile();
+      }
+    }
+  });
+  items.forEach((item) => {
+    item.addEventListener("click", clickHandler);
+  });
+}

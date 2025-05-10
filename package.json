@@ -4,15 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
     "build-watch": "vite build --watch",
-    "preview": "vite preview"
+    "format": "prettier --write . && vite build"
   },
   "devDependencies": {
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "gsap": "^3.13.0"
+    "gsap": "^3.13.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3"
   }
 }
