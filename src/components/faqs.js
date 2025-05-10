@@ -11,7 +11,7 @@ if (!!faqs) {
     item.setAttribute('tabindex', '1')
   })
 
-  let isDesktop = window.innerWidth >= 991;
+  let isDesktop = window.innerWidth >= 991
 
   // Initialize the correct layout based on the device
   if (isDesktop) {
@@ -21,34 +21,34 @@ if (!!faqs) {
   }
   // Listen for window resize events to switch layouts dynamically
   window.addEventListener('resize', () => {
-    const shouldSwitchToDesktop = window.innerWidth >= 991;
+    const shouldSwitchToDesktop = window.innerWidth >= 991
     if (shouldSwitchToDesktop !== isDesktop) {
-      isDesktop = shouldSwitchToDesktop;
+      isDesktop = shouldSwitchToDesktop
       if (isDesktop) {
-        switchToDesktop();
+        switchToDesktop()
       } else {
-        switchToMobile();
+        switchToMobile()
       }
     }
   })
 
   // Add click event listeners to each FAQ item
   items.forEach((item) => {
-    item.addEventListener('click', clickHandler);
-  });
+    item.addEventListener('click', clickHandler)
+  })
 
   // Handles click events on FAQ items (accordion behavior)
   function clickHandler(e) {
-    const item = e.currentTarget;
-    const accordion = item.querySelector("[data-faqs='accordion']");
+    const item = e.currentTarget
+    const accordion = item.querySelector("[data-faqs='accordion']")
     if (item.classList.contains('is-active')) {
       // Collapse the item if it's already open
-      item.classList.remove('is-active');
-      accordion.style.height = '0rem';
+      item.classList.remove('is-active')
+      accordion.style.height = '0rem'
     } else {
       // Expand the item and set its height
-      item.classList.add('is-active');
-      accordion.style.height = `${sumHeightsOfElements(accordion.childNodes) + 1}px`;
+      item.classList.add('is-active')
+      accordion.style.height = `${sumHeightsOfElements(accordion.childNodes) + 1}px`
     }
   }
 
@@ -75,18 +75,27 @@ if (!!faqs) {
       item.addEventListener('click', clickHandler)
     })
   }
-  
+
   // Switches the FAQ layout to mobile mode (single column)
   function switchToMobile() {
     list.style.display = 'grid'
     list.style.flexDirection = 'row'
     // Move all items from the duplicated list back to the main list
     const dupedList = faqs.querySelector("[data-faqs='duped-list']")
-    const childrenCount = dupedList.children.length
-    for (let i = 0; i < childrenCount; i++) {
-      list.appendChild(dupedList.children[0])
+    if (!!dupedList) {
+      const childrenCount = dupedList.children.length
+      for (let i = 0; i < childrenCount; i++) {
+        list.appendChild(dupedList.children[0])
+      }
+      dupedList.remove()
     }
-    dupedList.remove();
+
+    // Update the items NodeList and re-attach event listeners
+    items = faqs.querySelectorAll("[data-faqs='item']")
+    items.forEach((item) => {
+      item.removeEventListener('click', clickHandler)
+      item.addEventListener('click', clickHandler)
+    })
   }
 
   function sumHeightsOfElements(elements) {
@@ -97,4 +106,3 @@ if (!!faqs) {
     return heights.reduce((a, b) => a + b, 0)
   }
 }
-
