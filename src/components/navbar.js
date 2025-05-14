@@ -11,23 +11,21 @@ if (!!navbar) {
   const navbarWrapper = navbar.querySelector('[data-navbar="wrapper"]')
   const logo = navbar.querySelector('[data-navbar="logo"]')
   const menu = navbar.querySelector('[data-navbar="menu"]')
-  let isShrinked = false
 
   if (window.scrollY > 24 && window.innerWidth > 992) {
     shrinkNavbar()
   }
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 24 && !isShrinked && window.innerWidth > 992) {
+    if (window.scrollY > 24 && window.innerWidth > 992) {
       shrinkNavbar()
     }
-    if (isShrinked && window.scrollY < 24 && window.innerWidth > 992) {
+    if (window.scrollY < 24 && window.innerWidth > 992) {
       expandNavbar()
     }
   })
 
   function shrinkNavbar() {
-    isShrinked = true
     const state = Flip.getState([navbarWrapper, logo, menu], {
       props: 'boxShadow',
     })
@@ -36,7 +34,6 @@ if (!!navbar) {
   }
 
   function expandNavbar() {
-    isShrinked = false
     const state = Flip.getState([navbarWrapper, logo, menu], {
       props: 'boxShadow',
     })
