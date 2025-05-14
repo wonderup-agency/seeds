@@ -38,11 +38,9 @@ function expandAccordion(tab) {
   const previousSibling = tab.previousElementSibling
   const nextSibling = tab.nextElementSibling
   if (previousSibling) {
-    console.log('previousSibling', previousSibling)
     previousSibling.style.borderBottomRightRadius = '1rem'
   }
   if (nextSibling) {
-    console.log('nextSibling', nextSibling)
     nextSibling.style.borderTopRightRadius = '1rem'
   }
 }
