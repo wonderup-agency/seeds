@@ -7,7 +7,7 @@ const reviews = document.querySelector('[data-component="reviews"]')
 
 if (!!reviews) {
   console.log('COMPONENT: REVIEWS')
-  
+
   const track = reviews.querySelector('[data-reviews="track"]')
   const overlay = reviews.querySelector('[data-reviews="overlay"]')
 
