@@ -11,16 +11,18 @@ if (!!navbar) {
   const navbarWrapper = navbar.querySelector('[data-navbar="wrapper"]')
   const logo = navbar.querySelector('[data-navbar="logo"]')
   const menu = navbar.querySelector('[data-navbar="menu"]')
+  let isShrinked = false
+  const isDesktop = window.innerWidth > 992
 
-  if (window.scrollY > 24 && window.innerWidth > 992) {
+  if (window.scrollY > 24 && isDesktop) {
     shrinkNavbar()
   }
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 24 && window.innerWidth > 992) {
+    if (window.scrollY > 24 && isDesktop && !isShrinked) {
       shrinkNavbar()
     }
-    if (window.scrollY < 24 && window.innerWidth > 992) {
+    if (window.scrollY < 24 && isDesktop && isShrinked) {
       expandNavbar()
     }
   })
@@ -31,6 +33,7 @@ if (!!navbar) {
     })
     navbar.classList.add('is-shrinked')
     execFlip(state)
+    isShrinked = true
   }
 
   function expandNavbar() {
@@ -39,6 +42,7 @@ if (!!navbar) {
     })
     navbar.classList.remove('is-shrinked')
     execFlip(state)
+    isShrinked = false
   }
 
   function execFlip(state) {
