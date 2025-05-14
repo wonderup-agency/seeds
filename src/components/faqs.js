@@ -1,3 +1,5 @@
+import { sumHeightsOfElements } from '../utils'
+
 const faqs = document.querySelector("[data-component='faqs']")
 
 if (!!faqs) {
@@ -96,13 +98,5 @@ if (!!faqs) {
       item.removeEventListener('click', clickHandler)
       item.addEventListener('click', clickHandler)
     })
-  }
-
-  function sumHeightsOfElements(elements) {
-    const heights = []
-    elements.forEach((element) => {
-      heights.push(element.offsetHeight)
-    })
-    return heights.reduce((a, b) => a + b, 0)
   }
 }
