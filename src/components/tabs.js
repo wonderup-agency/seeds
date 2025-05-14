@@ -13,7 +13,7 @@ if (!!tabsComponent) {
 
   //add event listeners
   tabsButtons.forEach((tab) => {
-    tab.addEventListener('click', (e) => {  
+    tab.addEventListener('click', (e) => {
       const target = e.currentTarget
       const isActive = target.classList.contains('is-active')
       if (!isActive) {
@@ -52,4 +52,3 @@ function collapseAccordion(tabs) {
     accordion.style.height = '0rem'
   })
 }
-

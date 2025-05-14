@@ -5,4 +5,3 @@ export function sumHeightsOfElements(elements) {
   })
   return heights.reduce((a, b) => a + b, 0)
 }
-
