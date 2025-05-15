@@ -5,5 +5,3 @@ import './components/tabs.js'
 import './components/reviews.js'
 import './components/stats.js'
 import './components/faqs.js'
-
-//FIX NAVBAR STATE
