@@ -9,3 +9,6 @@ import './components/faqs.js'
 
 //about page
 import './components/press.js'
+
+//blog page
+import './components/related-posts.js'
