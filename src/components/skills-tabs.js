@@ -4,6 +4,7 @@ if (!!skillsTabs) {
   console.log('COMPONENT: SKILLS TABS')
 
   const tabsButtons = document.querySelectorAll('[data-tabs-button]')
+  const skillsSource = skillsTabs.querySelector('[data-skills-source]')
   const skills = skillsTabs.querySelectorAll('[data-skill]')
   const skillsContainers = skillsTabs.querySelectorAll(
     '[data-skills-container]'
@@ -49,6 +50,7 @@ if (!!skillsTabs) {
       }
     })
   })
+  skillsSource.remove()
 
   function deselectAllTabs() {
     tabsButtons.forEach((tab) => {
