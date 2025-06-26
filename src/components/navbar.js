@@ -33,6 +33,11 @@ if (!!navbar) {
     })
     navbar.classList.add('is-shrinked')
     execFlip(state)
+    gsap.to(navbarWrapper, {
+      backgroundColor: 'white',
+      duration: 0.3,
+    })
+
     isShrinked = true
   }
 
@@ -42,6 +47,10 @@ if (!!navbar) {
     })
     navbar.classList.remove('is-shrinked')
     execFlip(state)
+    gsap.to(navbarWrapper, {
+      backgroundColor: 'transparent',
+      duration: 0.3,
+    })
     isShrinked = false
   }
 
