@@ -1,3 +1,4 @@
+import Rive from '@rive-app/canvas'
 import { sumHeightsOfElements } from '../utils'
 
 const tabsComponent = document.querySelector('[data-component="tabs"]')
@@ -6,10 +7,27 @@ if (!!tabsComponent) {
   console.log('COMPONENT: TABS')
 
   const tabsButtons = tabsComponent.querySelectorAll('[data-tabs="button"]')
+  const mainCanvas = tabsComponent.querySelector('[data-tabs="main-canvas"]')
 
   //initial state
   collapseAccordion(tabsButtons)
   expandAccordion(tabsButtons[0])
+  let mainRiv
+  if (window.innerWidth > 991) {
+    mainRiv = new Rive.Rive({
+      src: tabsButtons[0].dataset.riv,
+      canvas: mainCanvas,
+      autoplay: true,
+      artboard: 'Main',
+      StateMachine: 'State Machine 1',
+      onload: () => {
+        mainRiv.resizeDrawingSurfaceToCanvas()
+      },
+      onStop: (e) => {
+        mainRiv.play('State Machine 1')
+      },
+    })
+  }
 
   //add event listeners
   tabsButtons.forEach((tab) => {
@@ -19,8 +37,32 @@ if (!!tabsComponent) {
       if (!isActive) {
         collapseAccordion(tabsButtons)
         expandAccordion(target)
+        if (window.innerWidth > 991) {
+          mainRiv.load({
+            src: target.dataset.riv,
+            artboard: 'Main',
+            StateMachine: 'State Machine',
+            autoplay: true,
+          })
+        }
       }
     })
+    if (window.innerWidth <= 991) {
+      let riv = new Rive.Rive({
+        src: tab.dataset.riv,
+        canvas: tab.querySelector('canvas'),
+        autoplay: true,
+        artboard: 'Main',
+        StateMachine: 'State Machine 1',
+        onload: () => {
+          riv.resizeDrawingSurfaceToCanvas()
+        },
+        onStop: (e) => {
+          riv.play('State Machine')
+          riv.play('State Machine 1')
+        },
+      })
+    }
   })
 }
 
