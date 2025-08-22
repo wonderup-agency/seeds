@@ -4,6 +4,7 @@ if (!!skillsTabs) {
   console.log('COMPONENT: SKILLS TABS')
 
   const tabsButtons = document.querySelectorAll('[data-tabs-button]')
+  const texts = skillsTabs.querySelectorAll("[data-talent-texts]")
   const skillsSource = skillsTabs.querySelector('[data-skills-source]')
   const skills = skillsTabs.querySelectorAll('[data-skill]')
   const skillsContainers = skillsTabs.querySelectorAll(
@@ -27,9 +28,17 @@ if (!!skillsTabs) {
     tab.addEventListener('click', () => {
       deselectAllTabs()
       tab.classList.add('is-active')
-
-      // Show/hide skill categories based on data-talent match
+      
       const tabTalent = tab.dataset.talent
+
+      texts.forEach(text => {
+        if (text.dataset.talent === tabTalent) {
+          text.classList.remove('hide')
+        } else {
+          text.classList.add('hide')
+        }
+      })
+
       skillsCategoriesElement.forEach((category) => {
         if (category.dataset.talent === tabTalent) {
           category.classList.remove('hide')
